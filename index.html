@@ -1,729 +1,119 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ostroleka – Aktualności z Ostroleka</title>
-    <meta name="description" content="Najnowsze aktualności, wiadomości lokalne i informacje z Ostroleka. Ostroleka – Twój lokalny serwis informacyjny.">
-    <meta name="keywords" content="Ostroleka, wiadomości Ostroleka, aktualności Ostroleka, lokalny serwis informacyjny">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --primary: #0d3b6e;
-            --primary-light: #1a5276;
-            --accent: #c0392b;
-            --text: #1a1a1a;
-            --text-muted: #6c757d;
-            --bg: #f4f5f7;
-            --white: #ffffff;
-            --border: #dde1e7;
-            --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        a { color: inherit; text-decoration: none; }
-        a:hover { color: var(--accent); }
-        img { max-width: 100%; display: block; }
-
-        /* TOP BAR */
-        .topbar {
-            background: var(--primary);
-            color: rgba(255,255,255,0.75);
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            padding: 6px 0;
-        }
-        .topbar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .topbar a { color: rgba(255,255,255,0.75); }
-        .topbar a:hover { color: #fff; }
-
-        /* HEADER */
-        header {
-            background: var(--white);
-            border-bottom: 3px solid var(--primary);
-            padding: 18px 0 12px;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        .logo {
-            display: flex;
-            flex-direction: column;
-        }
-        .logo-name {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-            font-family: Arial, sans-serif;
-            line-height: 1;
-        }
-        .logo-name span { color: var(--accent); }
-        .logo-tagline {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: Arial, sans-serif;
-            margin-top: 3px;
-            letter-spacing: 0.5px;
-        }
-        .header-date {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: right;
-        }
-
-        /* NAV */
-        nav {
-            background: var(--primary);
-        }
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 0;
-        }
-        nav a {
-            color: rgba(255,255,255,0.9);
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 18px;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            transition: background 0.2s;
-        }
-        nav a:hover, nav a.active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* BREAKING NEWS */
-        .breaking {
-            background: var(--accent);
-            color: #fff;
-            padding: 8px 0;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-        }
-        .breaking-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .breaking-label {
-            background: rgba(0,0,0,0.25);
-            padding: 2px 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 11px;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-        }
-        .breaking-text { overflow: hidden; }
-
-        /* MAIN LAYOUT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 28px;
-        }
-
-        /* SECTION HEADING */
-        .section-heading {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
-            margin-bottom: 18px;
-        }
-
-        /* FEATURED ARTICLE */
-        .featured {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 24px;
-        }
-        .featured-img {
-            width: 100%;
-            height: 380px;
-            background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 60%, #1a5276 100%);
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-        }
-        .featured-img-label {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--accent);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            letter-spacing: 0.5px;
-        }
-        .featured-img-overlay {
-            width: 100%;
-            padding: 28px 28px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-        }
-        .featured-body { padding: 22px 28px 26px; }
-        .featured-category {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .featured-title {
-            font-size: 26px;
-            font-weight: 900;
-            line-height: 1.25;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .featured-excerpt {
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.65;
-            margin-bottom: 16px;
-        }
-        .featured-meta {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            gap: 16px;
-        }
-
-        /* ARTICLE GRID */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 24px;
-        }
-        .article-card {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-        }
-        .article-card-img {
-            width: 100%;
-            height: 160px;
-            position: relative;
-        }
-        .article-card-img-bg {
-            width: 100%;
-            height: 100%;
-        }
-        .article-card-body { padding: 16px; flex: 1; }
-        .article-card-category {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .article-card-title {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        .article-card-title:hover { color: var(--accent); }
-        .article-card-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: auto;
-            padding-top: 8px;
-        }
-
-        /* MORE ARTICLES */
-        .more-articles { margin-bottom: 8px; }
-        .more-article-item {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-        .more-article-num {
-            font-family: Arial, sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--border);
-            line-height: 1;
-            min-width: 32px;
-        }
-        .more-article-title {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .more-article-title:hover { color: var(--accent); }
-        .more-article-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* SIDEBAR */
-        .sidebar {}
-        .sidebar-widget {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 20px;
-            margin-bottom: 22px;
-        }
-        .sidebar-widget-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-        }
-        .sidebar-news-item {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .sidebar-news-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .sidebar-news-title {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 4px;
-        }
-        .sidebar-news-title:hover { color: var(--accent); }
-        .sidebar-news-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .sidebar-img {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #0d3b6e, #2980b9);
-            border-radius: 4px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-        }
-        .about-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-        .weather-widget {
-            text-align: center;
-        }
-        .weather-city {
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .weather-temp {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-            font-family: Arial, sans-serif;
-        }
-        .weather-desc {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-        .weather-icon { font-size: 36px; margin-bottom: 4px; }
-
-        /* FOOTER */
-        footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.8);
-            padding: 40px 0 20px;
-            margin-top: 20px;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            margin-bottom: 20px;
-        }
-        .footer-logo {
-            font-family: Arial, sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .footer-logo span { color: var(--accent); }
-        .footer-desc {
-            font-size: 13px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-col-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-        .footer-links { list-style: none; }
-        .footer-links li {
-            padding: 4px 0;
-            font-size: 13px;
-        }
-        .footer-links a {
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-links a:hover { color: #fff; }
-        .footer-bottom {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: rgba(255,255,255,0.45);
-            text-align: center;
-        }
-
-        /* COLOR PALETTES FOR ARTICLE IMGS */
-        .img-blue   { background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 100%); }
-        .img-green  { background: linear-gradient(135deg, #1e6b3e 0%, #27ae60 100%); }
-        .img-purple { background: linear-gradient(135deg, #4a235a 0%, #8e44ad 100%); }
-        .img-orange { background: linear-gradient(135deg, #784212 0%, #e67e22 100%); }
-        .img-teal   { background: linear-gradient(135deg, #0e5460 0%, #1abc9c 100%); }
-        .img-red    { background: linear-gradient(135deg, #6e0d0d 0%, #c0392b 100%); }
-
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-            nav a { padding: 10px 12px; font-size: 12px; }
-            .featured-img { height: 240px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Zdrowy styl życia i dieta - kompleksowy przewodnik</title>
+<style>
+    body {
+        font-family: 'Georgia', serif;
+        line-height: 1.7;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f9f4;
+        color: #2c3e2d;
+    }
+    h1 {
+        color: #2e7d32;
+        text-align: center;
+        border-bottom: 3px solid #66bb6a;
+        padding-bottom: 15px;
+        font-size: 2.2em;
+    }
+    h2 {
+        color: #388e3c;
+        margin-top: 35px;
+        border-left: 5px solid #66bb6a;
+        padding-left: 12px;
+    }
+    p {
+        text-align: justify;
+        margin-bottom: 15px;
+    }
+    .intro {
+        background-color: #e8f5e9;
+        padding: 20px;
+        border-radius: 10px;
+        font-style: italic;
+    }
+    ul {
+        background-color: #ffffff;
+        padding: 15px 15px 15px 40px;
+        border-radius: 8px;
+        border: 1px solid #c8e6c9;
+    }
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 15px;
+        border-top: 2px solid #66bb6a;
+        color: #558b2f;
+    }
+</style>
 </head>
 <body>
 
-<div class="topbar">
-    <div class="topbar-inner">
-        <span id="topbar-date">Poniedziałek, 23 czerwca 2025</span>
-        <span>
-            <a href="#">Kontakt</a> &nbsp;|&nbsp;
-            <a href="#">Newsletter</a> &nbsp;|&nbsp;
-            <a href="#">Reklama</a>
-        </span>
-    </div>
+<h1>Zdrowy styl życia i dieta – klucz do długowieczności</h1>
+<p><a href="https://dompluswnetrze.pl">dompluswnetrze.pl</a></p>
+
+<div class="intro">
+<p>Zdrowie to najcenniejszy zasób, jaki posiadamy. W dzisiejszym zabieganym świecie, pełnym przetworzonej żywności, stresu i siedzącego trybu życia, świadome dbanie o kondycję fizyczną i psychiczną staje się nie tyle modą, co koniecznością. Poniższy przewodnik przedstawia najważniejsze filary zdrowego stylu życia, które pomogą Ci cieszyć się dobrym samopoczuciem przez długie lata.</p>
 </div>
 
-<header>
-    <div class="header-inner">
-        <div class="logo">
-            <a href="/">
-                <div class="logo-name">Ostroleka<span></span></div>
-                <div class="logo-tagline">Lokalny serwis informacyjny &bull; Ostroleka</div>
-            </a>
-        </div>
-        <div class="header-date" id="header-date">
-            Twój lokalny portal informacyjny
-        </div>
-    </div>
-</header>
+<h2>Fundamenty zbilansowanej diety</h2>
+<p><a href="https://gazetagrudziadz.pl">gazetagrudziadz.pl</a></p>
+<p>Prawidłowe odżywianie stanowi podstawę dobrego zdrowia. Nasze codzienne wybory żywieniowe wpływają nie tylko na masę ciała, ale również na funkcjonowanie układu odpornościowego, pracę serca, koncentrację, a nawet nastrój. Zbilansowana dieta powinna dostarczać wszystkich niezbędnych makroskładników – białek, węglowodanów i tłuszczów – w odpowiednich proporcjach, a także witamin, minerałów i błonnika.</p>
+<p><a href="https://krakowinfo24.github.io/krakow.github.io/">krakowinfo24.github.io/krakow.github.io/</a></p>
 
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="active">Aktualności</a>
-        <a href="#">Miasto</a>
-        <a href="#">Sport</a>
-        <a href="#">Kultura</a>
-        <a href="#">Gospodarka</a>
-        <a href="#">Społeczeństwo</a>
-        <a href="#">Kontakt</a>
-    </div>
-</nav>
+<p>Warto zwrócić szczególną uwagę na jakość spożywanych produktów. Świeże warzywa i owoce, najlepiej sezonowe i pochodzące z lokalnych upraw, powinny stanowić około połowy każdego posiłku. Pełnoziarniste produkty zbożowe, takie jak kasza gryczana, jaglana, komosa ryżowa czy chleb żytni na zakwasie, zapewniają długotrwałe uczucie sytości oraz stabilizują poziom cukru we krwi. Nie można również zapominać o zdrowych źródłach białka – rybach morskich bogatych w kwasy omega-3, chudym drobiu, jajach, roślinach strączkowych oraz orzechach.</p>
+<p><a href="https://maluchyirodzice.pl">maluchyirodzice.pl</a></p>
 
-<div class="breaking">
-    <div class="breaking-inner">
-        <span class="breaking-label">Pilne</span>
-        <span class="breaking-text">Burmistrz Ostroleka ogłasza nowe inwestycje w infrastrukturę miejską &nbsp;•&nbsp; Wyniki wyborów do Rady Miejskiej &nbsp;•&nbsp; Nowy rok szkolny – zmiany w organizacji ruchu przy szkołach</span>
-    </div>
-</div>
+<p>Kluczową zasadą jest ograniczenie żywności wysokoprzetworzonej, cukrów prostych oraz tłuszczów trans. Kolorowe napoje gazowane, słodycze, fast foody i gotowe dania to produkty, które dostarczają wielu pustych kalorii, nie oferując w zamian wartości odżywczych. Zamiast nich warto sięgać po naturalne przekąski – garść migdałów, jabłko, marchewkę czy jogurt naturalny z owocami.</p>
 
-<div class="container">
-    <!-- MAIN CONTENT -->
-    <main>
-        <div class="section-heading">Najważniejsze</div>
+<h2>Znaczenie regularnej aktywności fizycznej</h2>
+<p>Ruch jest lekarstwem – to stwierdzenie znane już starożytnym Grekom nabiera dziś szczególnego znaczenia. Światowa Organizacja Zdrowia zaleca dorosłym osobom minimum 150 minut umiarkowanej aktywności fizycznej tygodniowo lub 75 minut wysiłku o wysokiej intensywności. Regularne ćwiczenia wzmacniają serce, poprawiają krążenie, zwiększają wydolność płuc oraz wpływają korzystnie na gospodarkę hormonalną organizmu.</p>
 
-        <article class="featured">
-            <div class="featured-img img-blue">
-                <div class="featured-img-label">Wyróżnione</div>
-                <div class="featured-img-overlay"></div>
-            </div>
-            <div class="featured-body">
-                <div class="featured-category">Miasto &bull; Aktualności</div>
-                <h1 class="featured-title"><a href="#">Wielka modernizacja centrum Ostroleka – znamy szczegóły nowego projektu rewitalizacji</a></h1>
-                <p class="featured-excerpt">Władze miasta przedstawiły ambitny plan przebudowy ścisłego centrum. Projekt obejmuje remont chodników, nowe nasadzenia zieleni, modernizację oświetlenia oraz budowę stref rekreacyjnych. Prace mają ruszyć wiosną przyszłego roku i potrwać do końca 2026.</p>
-                <div class="featured-meta">
-                    <span>23 czerwca 2025</span>
-                    <span>Redakcja Ostroleka</span>
-                    <span>5 min czytania</span>
-                </div>
-            </div>
-        </article>
+<p>Warto wybrać taki rodzaj aktywności, który sprawia nam przyjemność. Może to być poranny jogging w parku, jazda na rowerze, pływanie, taniec, joga czy nordic walking. Nie musimy od razu zapisywać się na siłownię – często wystarczą codzienne spacery, wchodzenie po schodach zamiast korzystania z windy oraz aktywne spędzanie czasu z rodziną. Kluczem do sukcesu jest systematyczność, a nie intensywność pojedynczych treningów.</p>
 
-        <div class="section-heading">Wiadomości lokalne</div>
+<p>Ćwiczenia siłowe, wykonywane 2-3 razy w tygodniu, pomagają utrzymać prawidłową masę mięśniową, co jest szczególnie ważne po 40. roku życia, kiedy naturalnie zaczynamy tracić tkankę mięśniową. Silne mięśnie chronią stawy, poprawiają postawę ciała i zapobiegają kontuzjom. Nie można również zapominać o ćwiczeniach rozciągających, które zwiększają elastyczność i redukują ryzyko urazów.</p>
+<p><a href="https://krakowinfo24.github.io/rzeszow.github.io/">krakowinfo24.github.io/rzeszow.github.io/</a></p>
 
-        <div class="articles-grid">
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-green" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Sport</div>
-                    <h2 class="article-card-title"><a href="#">Lokalna drużyna awansuje do wyższej ligi – mieszkańcy świętują sukces</a></h2>
-                    <div class="article-card-meta">22 czerwca 2025 &bull; Sport</div>
-                </div>
-            </article>
+<h2>Rola snu i regeneracji organizmu</h2>
+<p>Sen jest jednym z najważniejszych, choć często niedocenianych, elementów zdrowego stylu życia. Podczas nocnego odpoczynku organizm regeneruje komórki, konsoliduje wspomnienia, produkuje hormony i wzmacnia układ odpornościowy. Chroniczny niedobór snu prowadzi do wielu problemów zdrowotnych – zaburzeń koncentracji, wahań nastroju, przybierania na wadze, a nawet zwiększa ryzyko chorób serca i cukrzycy typu 2.</p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-purple" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Kultura</div>
-                    <h2 class="article-card-title"><a href="#">Festiwal Kulturalny Ostroleka 2025 – program i bilety już dostępne</a></h2>
-                    <div class="article-card-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </article>
+<p>Dorosły człowiek powinien spać od 7 do 9 godzin każdej nocy. Aby poprawić jakość snu, warto wprowadzić kilka prostych nawyków: kłaść się i wstawać o stałych porach, unikać ekranów urządzeń elektronicznych na godzinę przed snem, zadbać o odpowiednią temperaturę w sypialni (około 18-19°C) oraz zrezygnować z kofeiny w godzinach popołudniowych. Wieczorne rytuały, takie jak czytanie książki, ciepła kąpiel czy medytacja, pomagają wyciszyć umysł i przygotować ciało do odpoczynku.</p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-orange" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Gospodarka</div>
-                    <h2 class="article-card-title"><a href="#">Nowe miejsca pracy w Ostroleka – duży inwestor wchodzi na rynek lokalny</a></h2>
-                    <div class="article-card-meta">20 czerwca 2025 &bull; Gospodarka</div>
-                </div>
-            </article>
+<p>Regeneracja to nie tylko sen, ale również aktywny relaks w ciągu dnia. Krótkie przerwy w pracy, spacery na świeżym powietrzu, kontakt z naturą czy techniki oddechowe skutecznie redukują poziom kortyzolu – hormonu stresu. Warto również pamiętać o odpowiednim nawodnieniu organizmu – picie około 2 litrów wody dziennie wspiera pracę wszystkich narządów i pomaga w usuwaniu toksyn.</p>
+<p><a href="https://tulimamatulitata.pl">tulimamatulitata.pl</a></p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-teal" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Społeczeństwo</div>
-                    <h2 class="article-card-title"><a href="#">Nowe ścieżki rowerowe w Ostroleka – kiedy otwarcie i gdzie przebiegają?</a></h2>
-                    <div class="article-card-meta">19 czerwca 2025 &bull; Społeczeństwo</div>
-                </div>
-            </article>
-        </div>
+<h2>Zdrowie psychiczne i zarządzanie stresem</h2>
+<p>Nie można mówić o zdrowym stylu życia bez uwzględnienia aspektu psychicznego. Współczesny człowiek codziennie zmaga się z presją, deadline'ami, natłokiem informacji i wysokimi oczekiwaniami. Długotrwały stres wywołuje realne szkody w organizmie – osłabia odporność, przyczynia się do problemów z sercem, zaburzeń trawienia i chorób autoimmunologicznych.</p>
 
-        <div class="section-heading">Więcej wiadomości</div>
+<p>Skutecznymi metodami radzenia sobie ze stresem są medytacja, mindfulness, praktyki oddechowe oraz joga. Nawet 10-15 minut dziennie poświęcone na świadome oddychanie potrafi znacząco obniżyć poziom napięcia. Ważne są również relacje z bliskimi – rozmowy z rodziną i przyjaciółmi, wspólne spędzanie czasu i wsparcie emocjonalne działają jak naturalny bufor przeciwko stresowi.</p>
+<p><a href="https://dziennikczestochowa.pl">dziennikczestochowa.pl</a></p>
 
-        <div class="more-articles">
-            <div class="more-article-item">
-                <div class="more-article-num">1</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Przebudowa ul. Głównej w Ostroleka – utrudnienia w ruchu przez kolejne tygodnie</a></div>
-                    <div class="more-article-meta">23 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">2</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Szkoły w Ostroleka podsumowują rok szkolny 2024/2025 – wyniki i statystyki</a></div>
-                    <div class="more-article-meta">22 czerwca 2025 &bull; Edukacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">3</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Jarmark Letni na Rynku – tłumy mieszkańców na corocznej imprezie</a></div>
-                    <div class="more-article-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">4</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Zmiany w rozkładzie jazdy autobusów miejskich od 1 lipca 2025</a></div>
-                    <div class="more-article-meta">20 czerwca 2025 &bull; Komunikacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">5</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Nowe oblicze Parku Miejskiego – zakończono remont i otwarcie dla zwiedzających</a></div>
-                    <div class="more-article-meta">18 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-        </div>
-    </main>
+<p>Warto również rozwijać pasje i zainteresowania, które sprawiają nam radość. Gotowanie, malowanie, ogrodnictwo, gra na instrumencie czy nauka języków obcych angażują umysł w pozytywny sposób i dają poczucie satysfakcji. Jeśli natomiast czujemy, że sami nie radzimy sobie z emocjami, nie należy wahać się skorzystać z pomocy psychologa lub psychoterapeuty.</p>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Popularne dziś</div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Wyniki matur 2025 – jak wypadli uczniowie z Ostroleka?</a></div>
-                <div class="sidebar-news-meta">23 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Targi pracy w Ostroleka – setki ofert dla bezrobotnych</a></div>
-                <div class="sidebar-news-meta">22 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Nowe połączenie kolejowe z Ostroleka do Warszawy</a></div>
-                <div class="sidebar-news-meta">21 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Pożar w centrum – straż pożarna szybko opanowała ogień</a></div>
-                <div class="sidebar-news-meta">20 czerwca 2025</div>
-            </div>
-        </div>
+<h2>Praktyczne wskazówki na co dzień</h2>
+<p>Wprowadzanie zmian w stylu życia najlepiej rozpocząć od małych kroków, które łatwo utrzymać w dłuższej perspektywie. Oto kilka sprawdzonych zasad, które warto wdrożyć:</p>
+<p><a href="https://dladomuiogrodu.com.pl">dladomuiogrodu.com.pl</a></p>
 
-        <div class="sidebar-widget weather-widget">
-            <div class="sidebar-widget-title">Pogoda w Ostroleka</div>
-            <div class="weather-icon">⛅</div>
-            <div class="weather-city">Ostroleka</div>
-            <div class="weather-temp">21°C</div>
-            <div class="weather-desc">Częściowe zachmurzenie &bull; Poniedziałek</div>
-        </div>
+<ul>
+    <li>Zaczynaj dzień od szklanki ciepłej wody z cytryną</li>
+    <li>Jedz 4-5 mniejszych posiłków co 3-4 godziny</li>
+    <li>Planuj jadłospis z wyprzedzeniem i rób zakupy z listą</li>
+    <li>Ogranicz sól, cukier i wysoko przetworzoną żywność</li>
+    <li>Codziennie przeznacz przynajmniej 30 minut na ruch</li>
+    <li>Wprowadź cyfrowy detoks – jeden dzień w tygodniu bez ekranów</li>
+    <li>Dbaj o relacje z bliskimi i znajduj czas na rozmowę</li>
+    <li>Regularnie wykonuj badania profilaktyczne</li>
+</ul>
 
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">O nas</div>
-            <div class="sidebar-img">Ostroleka</div>
-            <p class="about-text">Ostroleka to niezależny lokalny serwis informacyjny poświęcony wiadomościom z Ostroleka i regionu. Dostarczamy rzetelne informacje dla mieszkańców od 2020 roku.</p>
-        </div>
-
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Kontakt</div>
-            <div style="font-size:13px; color: var(--text-muted); line-height:2;">
-                <div>📧 redakcja@ostroleka.github.io</div>
-                <div>📞 +48 34 XXX XX XX</div>
-                <div>📍 Ostroleka, ul. Redakcyjna 1</div>
-            </div>
-        </div>
-    </aside>
-</div>
+<p>Zdrowy styl życia to nie chwilowa moda ani restrykcyjna dieta, lecz świadome, konsekwentne wybory podejmowane każdego dnia. Pamiętajmy, że nawet niewielkie zmiany, wprowadzane systematycznie, przynoszą z czasem imponujące efekty. Inwestycja w zdrowie to najlepsza inwestycja, jaką możemy podjąć – jej dywidendą jest długie, aktywne i szczęśliwe życie.</p>
 
 <footer>
-    <div class="footer-inner">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">Ostroleka<span></span></div>
-                <p class="footer-desc">Lokalny serwis informacyjny Ostroleka. Najnowsze wiadomości, aktualności lokalne, sport, kultura i gospodarka. Bądź na bieżąco z tym, co dzieje się w Twoim mieście.</p>
-            </div>
-            <div>
-                <div class="footer-col-title">Działy</div>
-                <ul class="footer-links">
-                    <li><a href="#">Aktualności</a></li>
-                    <li><a href="#">Miasto</a></li>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Kultura</a></li>
-                    <li><a href="#">Gospodarka</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Informacje</div>
-                <ul class="footer-links">
-                    <li><a href="#">O redakcji</a></li>
-                    <li><a href="#">Kontakt</a></li>
-                    <li><a href="#">Reklama</a></li>
-                    <li><a href="#">Polityka prywatności</a></li>
-                    <li><a href="#">Regulamin</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; <span id="footer-year">2025</span> Ostroleka. Wszelkie prawa zastrzeżone.
-        </div>
-    </div>
+<p>© 2024 Poradnik zdrowego stylu życia. Dbaj o siebie każdego dnia!</p>
 </footer>
-
-<script>
-    const now = new Date();
-    const days = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
-    const months = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
-    document.getElementById('topbar-date').textContent =
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    document.getElementById('footer-year').textContent = now.getFullYear();
-</script>
 
 </body>
 </html>
